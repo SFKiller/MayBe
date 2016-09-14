@@ -3,6 +3,9 @@ package com.kingleoric.maybe.http.core;
 import com.kingleoric.maybe.Utils.Logger;
 import com.kingleoric.maybe.http.base.Request;
 import com.kingleoric.maybe.http.base.Response;
+import com.kingleoric.maybe.http.cache.Cache;
+import com.kingleoric.maybe.http.cache.LruMemCache;
+import com.kingleoric.maybe.http.stack.HttpStack;
 
 import java.util.concurrent.BlockingQueue;
 

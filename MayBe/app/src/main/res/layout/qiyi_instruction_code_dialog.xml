@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="290dp"
+    android:layout_height="192dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="148dp"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/qiyi_instruction_code_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="淘淘口令"
+            android:textSize="16sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_below="@id/qiyi_instruction_code_tv">
+            
+            <ImageView
+                android:id="@+id/qiyi_instruction_code_iv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:src="@mipmap/pp_icon_home_tabbar_sessions_hl"/>
+            <TextView
+                android:layout_toRightOf="@id/qiyi_instruction_code_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="44dp">
+        <TextView
+            android:layout_width="145dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:text="CANCEL" />
+
+        <TextView
+            android:layout_width="145dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:text="OK"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

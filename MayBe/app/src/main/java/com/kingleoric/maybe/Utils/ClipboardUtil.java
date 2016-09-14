@@ -25,15 +25,16 @@ public class ClipboardUtil {
     }
 
     public String getTextFromClipboard() {
+        Logger.d(this, "getTextFromClipboard context : " + context);
         if (null != context) {
             ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             if (null != clipboardManager) {
                 String text = clipboardManager.getPrimaryClip().getItemAt(0).getText().toString();
                 Logger.d(this, "clipboard text : " + text);
-                if (isKingLeoricInstruction(text)) {
+                //if (isKingLeoricInstruction(text)) {
                     String showText = generateShowText(text);
                     createDialog(showText).show();
-                }
+                //}
                 return text;
             } else {
                 Logger.w("QIPU", "ClipboardManager is not ready!!!");
@@ -108,7 +109,8 @@ public class ClipboardUtil {
      */
     private void clearClipboard() {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        clipboardManager.setPrimaryClip(null);
+        ClipData data = ClipData.newPlainText("", "");
+        clipboardManager.setPrimaryClip(data);
     }
     /**
      * Set text to system clipboard

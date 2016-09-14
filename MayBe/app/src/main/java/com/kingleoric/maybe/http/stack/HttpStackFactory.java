@@ -16,7 +16,8 @@ public final class HttpStackFactory {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             return new HttpUrlConnStack();
         } else {
-            return new HttpClientStack();
+            //return new HttpClientStack();
+            return null;
         }
     }
 }

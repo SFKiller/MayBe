@@ -1,6 +1,7 @@
 package com.kingleoric.maybe.http.requests;
 
 import com.kingleoric.maybe.http.base.Request;
+import com.kingleoric.maybe.http.base.Response;
 
 /** For the response result is String
  * @author KingLeoric

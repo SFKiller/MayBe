@@ -17,6 +17,11 @@ public class ResponseDelivery implements Executor {
     /** Main thread handler*/
     Handler responseHandler = new Handler(Looper.getMainLooper());
 
+    /**
+     *  Handle reqest result in UI thread
+     * @param request
+     * @param response
+     */
     public void deliveryResponse(final Request<?> request, final Response response) {
         Runnable responseRunnbale = new Runnable() {
             @Override

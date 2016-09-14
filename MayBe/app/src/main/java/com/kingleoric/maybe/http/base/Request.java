@@ -11,6 +11,10 @@ import java.util.Map;
  */
 public abstract class Request<T> implements Comparable<Request<T>> {
 
+    private static final String AND = "&";
+    private static final String EQ = "=";
+    private static final String HTTPS = "https";
+
     /**
      * Http method enum: GET, POST, PUT, DELETE
      */
@@ -44,6 +48,8 @@ public abstract class Request<T> implements Comparable<Request<T>> {
 
     /**Default encoding for POST and PUT paramters*/
     private static final String DEFAULT_PARAMS_ENCODING_FORMAT = "UTF-8";
+    /** Default Content-type*/
+    private static final String DEFAULT_HEADER_CONTENT_TYPE = "Content-type";
     /**Request serial number*/
     protected int serialNum = 0;
     /**Default priority*/
@@ -69,6 +75,14 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         requestListener = listener;
     }
 
+    /**
+     * Add header param
+     * @param name
+     * @param value
+     */
+    public void addHeader(String name, String value) {
+        headers.put(name, value);
+    }
     /**
      * Abstract method for parsing result of request
      * @param response Original result of request
@@ -103,6 +117,13 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      */
     public String getUrl() {
         return this.url;
+    }
+
+    /**
+     * @return
+     */
+    public RequestListener<T> getRequestListener() {
+        return requestListener;
     }
 
     /**
@@ -147,6 +168,12 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         return "application/x-www-form-urlencoded; charset=" + getParamsEncodingFormat();
     }
 
+    /**
+     * @return if the request url is a https request
+     */
+    public boolean isHttps() {
+        return url.startsWith(HTTPS);
+    }
     /** Get http method
      * @return
      */
@@ -211,9 +238,9 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
                 encodingParams.append(URLEncoder.encode(entry.getKey(), paramEncodingFormat));
-                encodingParams.append('=');
+                encodingParams.append(EQ);
                 encodingParams.append(URLEncoder.encode(entry.getValue(), paramEncodingFormat));
-                encodingParams.append('&');
+                encodingParams.append(AND);
             }
             return encodingParams.toString().getBytes(paramEncodingFormat);
         } catch (UnsupportedEncodingException e) {
@@ -233,6 +260,73 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         /** Compare with serial number if priority is same*/
         return thisPriority.equals(anotherPriority) ? (this.getSerialNum() - request.getSerialNum())
                 : (thisPriority.ordinal() - anotherPriority.ordinal());
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((null == headers) ? 0 : headers.hashCode());
+        result = prime * result + ((null == httpMethod) ? 0 : httpMethod.hashCode());
+        result = prime * result + ((null == bodyParams) ? 0 : bodyParams.hashCode());
+        result = prime * result + ((null == priority) ? 0 : priority.hashCode());
+        result = prime * result + ((shouldCache ? 1231 : 1237));
+        result = prime * result + ((null == url) ? 0 : url.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (null == object) {
+            return false;
+        }
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+        Request<?> another = (Request<?>) object;
+        if (null == headers) {
+            if (null != another.headers) {
+                return false;
+            }
+        } else if (!headers.equals(another.headers)) {
+            return false;
+        }
+
+        if (httpMethod != another.httpMethod) {
+            return false;
+        }
+
+        if (null == bodyParams) {
+            if (null != another.bodyParams) {
+                return false;
+            }
+        } else if (!bodyParams.equals(another.bodyParams)) {
+            return false;
+        }
+
+        if (priority != another.priority) {
+            return false;
+        }
+
+        if (!(shouldCache && another.shouldCache)) {
+            return false;
+        }
+
+        if (null == url) {
+            if (null != another.url) {
+                return false;
+            }
+        } else if (!url.equals(another.url)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

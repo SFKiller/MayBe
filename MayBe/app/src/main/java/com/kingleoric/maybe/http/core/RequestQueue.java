@@ -2,6 +2,7 @@ package com.kingleoric.maybe.http.core;
 
 import com.kingleoric.maybe.Utils.Logger;
 import com.kingleoric.maybe.http.base.Request;
+import com.kingleoric.maybe.http.stack.HttpStack;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -19,7 +20,7 @@ public final class RequestQueue {
     private AtomicInteger serialNumberGenerator = new AtomicInteger(0);
 
     /** Default core numbers*/
-    private static final int DEFAULT_CORE_NUMS = Runtime.getRuntime().availableProcessors() + 1;
+    public static final int DEFAULT_CORE_NUMS = Runtime.getRuntime().availableProcessors() + 1;
     /**Dispatch thread number*/
     private int dispatchThreadNum = DEFAULT_CORE_NUMS;
     /**Executing threads for request*/
